@@ -11,9 +11,19 @@ class Counter extends Component {
     }
   };
 
-  incrementAsync = () => {
+  incrementAsync = count => {
     // Stretch Problem: Implement an increment function that
     // increments after waiting for one second
+
+    //idk it seemed like they would want us to do this with a promise since we practiced that last week
+
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve(count);
+      }, 1000);
+    }).then(res => {
+      return this.props.increment(res);
+    });
   };
 
   render() {
@@ -44,7 +54,9 @@ class Counter extends Component {
         <button onClick={() => this.incrementIfOdd(this.props.count)}>
           Increment if odd
         </button>
-        {/* <button onClick={this.incrementAsync}>Increment async</button> */}
+        <button onClick={() => this.incrementAsync(this.props.count)}>
+          Increment async
+        </button>
       </p>
     );
   }
